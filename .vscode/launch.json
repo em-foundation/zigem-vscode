@@ -6,7 +6,10 @@
             "request": "launch",
             "name": "Launch Extension",
             "runtimeExecutable": "${execPath}",
-            "args": ["--extensionDevelopmentPath=${workspaceFolder}"],
+            "args": [
+                "${workspaceFolder}/../../zig/zig-em-dev/",
+                "--extensionDevelopmentPath=${workspaceFolder}"
+            ],
             "outFiles": ["${workspaceFolder}/out/**/*.js"],
             "preLaunchTask": "Build Extension"
         }

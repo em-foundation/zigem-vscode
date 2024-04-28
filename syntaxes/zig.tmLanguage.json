@@ -33,6 +33,17 @@
           "name": "meta.function.declaration.zig",
           "patterns": [
             {
+                "match": "\\b(fn)\\s+(em__[a-zA-Z]*)\\b",
+                "captures": {
+                  "1": {
+                    "name": "storage.type.function.zig"
+                  },
+                  "2": {
+                    "name": "zigem"
+                  }
+                }
+              },
+            {
               "match": "\\b(fn)\\s+([A-Z][a-zA-Z0-9]*)\\b",
               "captures": {
                 "1": {
@@ -170,6 +181,14 @@
         {
           "name": "keyword.type.c.zig",
           "match": "\\b(c_char|c_short|c_ushort|c_int|c_uint|c_long|c_ulong|c_longlong|c_ulonglong|c_longdouble)\\b"
+        },
+        {
+            "name": "zigem",
+            "match": "\\b(em|em__unit)\\b"
+        },
+        {
+            "name": "zigemMarker",
+            "match": "\\b(EM__HOST|EM__SPEC|EM__TARG)\\b"
         }
       ]
     },
