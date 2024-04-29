@@ -33,7 +33,7 @@
           "name": "meta.function.declaration.zig",
           "patterns": [
             {
-                "match": "\\b(fn)\\s+(em__[a-zA-Z]*)\\b",
+                "match": "\\b(fn)\\s+(em__configureH|em__constructH|em__generateH|em__generateS|em__initH|em__startup|em__run)\\b",
                 "captures": {
                   "1": {
                     "name": "storage.type.function.zig"
