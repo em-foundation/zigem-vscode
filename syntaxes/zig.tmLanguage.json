@@ -33,40 +33,26 @@
     "zigems": {
       "patterns": [
         {
-          "name": "zigem.field",
-          "match": "\\b(em)(\\.)([A-Za-z][A-Za-z0-9_]*)\\b",
-          "captures": {
-            "1": {
-              "name": "zigem"
-            },
-            "2": {
-              "name": "keyword.operator.special.zig"
-            },
-            "3": {
-              "name": "zigem"
-            }
-          }
-          },
-          {
-            "name": "zigem.debug",
-            "match": "\\b(em)(\\.)(fail|halt|print|)\\b",
-          "captures": {
-            "1": {
-              "name": "zigem"
-            },
-            "2": {
-              "name": "keyword.operator.special.zig"
-            },
-            "3": {
-              "name": "zigemDebug"
-            }
-          }
-        },
-        {
-            "match": "\\b(em)(\\.)(@\"%%\\S+\")",
+            "name": "zigem.field",
+            "match": "\\b(em)(\\.)([A-Za-z][A-Za-z0-9_]*)\\b",
             "captures": {
               "1": {
                 "name": "zigem"
+              },
+              "2": {
+                "name": "keyword.operator.special.zig"
+              },
+              "3": {
+                "name": "zigem"
+              }
+            }
+            },
+        {
+            "name": "zigem.debug2",
+            "match": "\\b(em)(\\.)(@\"%%\\S+\")",
+            "captures": {
+              "1": {
+                "name": "zigemDebug"
               },
               "2": {
                 "name": "keyword.operator.special.zig"
@@ -76,7 +62,6 @@
               }
             }
         },
-
         {
             "name": "zigem",
             "match": "\\b(em|em__unit)\\b"
