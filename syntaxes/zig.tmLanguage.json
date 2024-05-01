@@ -33,6 +33,21 @@
     "zigems": {
       "patterns": [
         {
+        "name": "zigem.debug2",
+        "match": "\\b(em)(\\.)(fail|halt|print)\\b",
+        "captures": {
+          "1": {
+            "name": "zigemDebug"
+          },
+          "2": {
+            "name": "keyword.operator.special.zig"
+          },
+          "3": {
+            "name": "zigemDebug"
+          }
+        }
+        },
+    {
             "name": "zigem.field",
             "match": "\\b(em)(\\.)([A-Za-z][A-Za-z0-9_]*)\\b",
             "captures": {
