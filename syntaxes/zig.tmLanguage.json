@@ -5,6 +5,9 @@
   "fileTypes": ["zig", "zon"],
   "patterns": [
     {
+      "include": "#zigems"
+    },
+    {
       "include": "#comments"
     },
     {
@@ -27,13 +30,70 @@
     }
   ],
   "repository": {
+    "zigems": {
+      "patterns": [
+        {
+          "name": "zigem.field",
+          "match": "\\b(em)(\\.)([A-Za-z][A-Za-z0-9_]*)\\b",
+          "captures": {
+            "1": {
+              "name": "zigem"
+            },
+            "2": {
+              "name": "keyword.operator.special.zig"
+            },
+            "3": {
+              "name": "zigem"
+            }
+          }
+          },
+          {
+            "name": "zigem.debug",
+            "match": "\\b(em)(\\.)(fail|halt|print|)\\b",
+          "captures": {
+            "1": {
+              "name": "zigem"
+            },
+            "2": {
+              "name": "keyword.operator.special.zig"
+            },
+            "3": {
+              "name": "zigemDebug"
+            }
+          }
+        },
+        {
+            "match": "\\b(em)(\\.)(@\"%%\\S+\")",
+            "captures": {
+              "1": {
+                "name": "zigem"
+              },
+              "2": {
+                "name": "keyword.operator.special.zig"
+              },
+              "3": {
+                "name": "zigemDebug"
+              }
+            }
+        },
+
+        {
+            "name": "zigem",
+            "match": "\\b(em|em__unit)\\b"
+        },
+        {
+            "name": "zigemMarker",
+            "match": "\\b(EM__HOST|EM__SPEC|EM__TARG)\\b"
+        }
+      ]
+    },
     "variables": {
       "patterns": [
         {
           "name": "meta.function.declaration.zig",
           "patterns": [
             {
-                "match": "\\b(fn)\\s+(em__configureH|em__constructH|em__generateH|em__generateS|em__initH|em__startup|em__run)\\b",
+                "match": "\\b(fn)\\s+(em__configureH|em__constructH|em__fail|em__generateH|em__generateS|em__halt|em__initH|em__ready|em__reset|em__run|em__startup)\\b",
                 "captures": {
                   "1": {
                     "name": "storage.type.function.zig"
@@ -181,14 +241,6 @@
         {
           "name": "keyword.type.c.zig",
           "match": "\\b(c_char|c_short|c_ushort|c_int|c_uint|c_long|c_ulong|c_longlong|c_ulonglong|c_longdouble)\\b"
-        },
-        {
-            "name": "zigem",
-            "match": "\\b(em|em__unit)\\b"
-        },
-        {
-            "name": "zigemMarker",
-            "match": "\\b(EM__HOST|EM__SPEC|EM__TARG)\\b"
         }
       ]
     },
