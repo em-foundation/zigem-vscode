@@ -83,7 +83,7 @@
         },
         {
             "name": "zigemMarker",
-            "match": "\\b(EM__HOST|EM__SPEC|EM__TARG)\\b"
+            "match": "\\bpub const (EM__HOST|EM__SPEC|EM__TARG) = null\\b"
         }
       ]
     },
