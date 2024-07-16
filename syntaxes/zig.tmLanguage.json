@@ -78,12 +78,31 @@
             }
         },
         {
+            "name": "zigem.cast",
+            "match": "\\b(em)(\\.)(@)(\"<>\")",
+            "captures": {
+              "1": {
+                "name": "zigem"
+              },
+              "2": {
+                "name": "keyword.operator.special.zig"
+              },
+              "3": {
+                "name": "zigem"
+              },
+              "4": {
+                "name": "entity.name.type"
+              }
+            }
+        },
+
+        {
             "name": "zigem",
-            "match": "\\b(em|em__unit)\\b"
+            "match": "\\b(em|em__[A-Za-z]+)\\b"
         },
         {
             "name": "zigemMarker",
-            "match": "\\bpub const (EM__HOST|EM__SPEC|EM__TARG) = null\\b"
+            "match": "\\bpub const EM__[A-Z]+\\b"
         }
       ]
     },
