@@ -46,6 +46,12 @@
         "path": "./syntaxes/zig.tmLanguage.json"
       }
     ],
+    "snippets": [
+        {
+            "language": "zig",
+            "path": "./snippets.json"
+        }
+    ],
     "problemMatchers": [
       {
         "name": "zig",

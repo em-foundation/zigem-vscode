@@ -1,0 +1,81 @@
+{
+    "New Module": {
+        "body": [
+            "pub const em = @import(\"../../.gen/em.zig\");",
+            "pub const em__U = em.Module(@This(), .{});",
+            "pub const em__C = em__U.config(EM__CONFIG);",
+            "",
+            "pub const EM__CONFIG = struct {",
+            "    em__upath: []const u8,",
+            "};",
+            "",
+            "pub const EM__HOST = struct {};",
+            "",
+            "pub const EM__TARG = struct {};",
+            ""
+        ],
+        "isFileTemplate": true,
+        "description": "zig-em module boilerplate"
+    },
+    "New Program": {
+        "body": [
+            "pub const em = @import(\"../../.gen/em.zig\");",
+            "pub const em__U = em.Module(@This(), .{});",
+            "pub const em__C = em__U.config(EM__CONFIG);",
+            "",
+            "pub const EM__CONFIG = struct {",
+            "    em__upath: []const u8,",
+            "};",
+            "",
+            "pub const EM__HOST = struct {};",
+            "",
+            "pub const EM__TARG = struct {",
+            "    pub fn em__run() void {",
+            "        em.halt();",
+            "    }",
+            "};",
+            ""
+        ],
+        "isFileTemplate": true,
+        "description": "zig-em program boilerplate"
+    },
+    "New Interface": {
+        "body": [
+            "pub const em = @import(\"../../.gen/em.zig\");",
+            "pub const em__U = em.Interface(@This(), .{});",
+            ""
+        ],
+        "isFileTemplate": true,
+        "description": "zig-em interface boilerplate"
+    },
+    "New Composite": {
+        "body": [
+            "pub const em = @import(\"../../.gen/em.zig\");",
+            "pub const em__U = em.Composite(@This(), .{});",
+            "",
+            "pub const EM__HOST = struct {};",
+            ""
+        ],
+        "isFileTemplate": true,
+        "description": "zig-em composite boilerplate"
+    },
+    "New Template": {
+        "body": [
+            "pub const em = @import(\"../../.gen/em.zig\");",
+            "pub const em__T = em.Template(@This(), .{});",
+            "pub const EM__CONFIG = struct {",
+            "    em__upath: []const u8,",
+            "};",
+            "",
+            "pub fn em__generateS(comptime name: []const u8) type {",
+            "    return struct {",
+            "        pub const em__U = em.module(@This(), .{ .generated = true, .name = name });",
+            "        pub const em__C = em__U.config(EM__CONFIG);",
+            "    };",
+            "}",
+            ""
+        ],
+        "isFileTemplate": true,
+        "description": "zig-em composite boilerplate"
+    }
+}
