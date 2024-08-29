@@ -77,12 +77,9 @@ export async function stopClient() {
     client = null;
 }
 
-// returns the file system path to the zls executable
 export function getZLSPath(): string {
-    const configuration = vscode.workspace.getConfiguration("zig.zls");
-    const zlsPath = configuration.get<string>("path");
-    const exePath = zlsPath !== "zls" ? zlsPath : null; // the string "zls" means lookup in PATH
-    return getExePath(exePath, "zls", "zig.zls.path");
+    const ext = isWindows ? ".exe" : "";
+    return `${vscode.workspace.workspaceFolders![0].uri.fsPath}/zig-out/bin/zls-em${ext}`;
 }
 
 async function configurationMiddleware(
