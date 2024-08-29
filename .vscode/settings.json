@@ -18,5 +18,8 @@
     "typescript.tsc.autoDetect": "off",
     "eslint.experimental.useFlatConfig": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "explorerExclude.backup": {}
+    "explorerExclude.backup": {},
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    }
 }
