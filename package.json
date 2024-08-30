@@ -3,7 +3,7 @@
     "displayName": "Zig Language + Zig•EM",
     "description": "Language support for the Zig programming language",
     "version": "0.0.1",
-    "publisher": "The EM Foundation",
+    "publisher": "the-em-foundation",
     "icon": "images/zig-icon.png",
     "license": "MIT",
     "repository": {
@@ -431,5 +431,8 @@
         "semver": "^7.5.2",
         "vscode-languageclient": "8.0.2-next.5",
         "which": "^3.0.0"
-    }
+    },
+    "extensionDependencies": [
+        "vscode-icons-team.vscode-icons"
+    ]
 }

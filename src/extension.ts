@@ -1,23 +1,26 @@
-import vscode from "vscode";
+import Fs from "fs";
+import Path from "path";
+import Vsc from "vscode";
 
 import { ZigFormatProvider, ZigRangeFormatProvider } from "./zigFormat";
 import { activate as activateZls, deactivate as deactivateZls } from "./zls";
 import ZigCompilerProvider from "./zigCompilerProvider";
 import { setupZig } from "./zigSetup";
 
-const ZIG_MODE: vscode.DocumentFilter = { language: "zig", scheme: "file" };
+const ZIG_MODE: Vsc.DocumentFilter = { language: "zig", scheme: "file" };
 
-export async function activate(context: vscode.ExtensionContext) {
+export async function activate(context: Vsc.ExtensionContext) {
     await updateSettings('editor', 'tokenColorCustomizations', COLORS);
+    await refreshIcons();
     await setupZig(context).finally(() => {
         const compiler = new ZigCompilerProvider();
         compiler.activate(context.subscriptions);
-        if (vscode.workspace.getConfiguration("zig").get<string>("formattingProvider") === "extension") {
+        if (Vsc.workspace.getConfiguration("zig").get<string>("formattingProvider") === "extension") {
             context.subscriptions.push(
-                vscode.languages.registerDocumentFormattingEditProvider(ZIG_MODE, new ZigFormatProvider()),
+                Vsc.languages.registerDocumentFormattingEditProvider(ZIG_MODE, new ZigFormatProvider()),
             );
             context.subscriptions.push(
-                vscode.languages.registerDocumentRangeFormattingEditProvider(ZIG_MODE, new ZigRangeFormatProvider()),
+                Vsc.languages.registerDocumentRangeFormattingEditProvider(ZIG_MODE, new ZigRangeFormatProvider()),
             );
         }
 
@@ -29,13 +32,43 @@ export async function deactivate() {
     await deactivateZls();
 }
 
+function isBundle(path: string): boolean {
+    if (!Fs.existsSync(path)) return false;
+    if (!Fs.statSync(path).isDirectory()) return false;
+    let ifile = Path.join(path, 'em-bundle.ini');
+    if (!Fs.existsSync(ifile)) return false;
+    return true;
+}
+
+function mkBundleNames(): string[] {
+    let res = new Array<string>();
+    let wpath = Path.join(rootPath(), "workspace");
+    Fs.readdirSync(wpath).forEach(f => {
+        if (isBundle(Path.join(wpath, f))) res.push(f);
+    });
+    return res;
+}
+
+async function refreshIcons() {
+    let conf = Vsc.workspace.getConfiguration('vsicons', Vsc.Uri.file(rootPath()))
+    let bnames = mkBundleNames();
+    await conf.update('associations.folders', [
+        {icon: 'embundle', extensions: bnames, format: 'svg'},
+    ], Vsc.ConfigurationTarget.Workspace)
+    await conf.update('associations.files', [
+        {icon: 'emunit', extensions: ['.em.zig'], format: 'svg'},
+    ], Vsc.ConfigurationTarget.Workspace)
+    await conf.update('customIconFolderPath', Path.join(Vsc.extensions.getExtension('the-em-foundation.vscode-zigem')!.extensionPath, 'etc'))
+    Vsc.commands.executeCommand('vscode-icons.regenerateIcons')
+}
+
 function rootPath(): string {
-    return vscode.workspace.workspaceFolders![0].uri.fsPath
+    return Vsc.workspace.workspaceFolders![0].uri.fsPath
 }
 
 async function updateSettings(sect: string, key: string, val: any) {
-    let conf = vscode.workspace.getConfiguration(sect, vscode.Uri.file(rootPath()))
-    await conf.update(key, val, vscode.ConfigurationTarget.Workspace)
+    let conf = Vsc.workspace.getConfiguration(sect, Vsc.Uri.file(rootPath()))
+    await conf.update(key, val, Vsc.ConfigurationTarget.Workspace)
 }
 
 const COLORS =
