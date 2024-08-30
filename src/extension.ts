@@ -10,6 +10,12 @@ import { setupZig } from "./zigSetup";
 const ZIG_MODE: Vsc.DocumentFilter = { language: "zig", scheme: "file" };
 
 export async function activate(context: Vsc.ExtensionContext) {
+    let zigFlag = Vsc.extensions.getExtension("ziglang.vscode-zig") != undefined;
+    if (zigFlag) {
+        let opts: Vsc.MessageOptions = { detail: "Disable the 'ziglang.vscode-zig' extension in this workspace", modal: true};
+        await Vsc.window.showWarningMessage("Zig•EM", opts);
+        return;
+    }
     await updateSettings('editor', 'tokenColorCustomizations', COLORS);
     await refreshIcons();
     await setupZig(context).finally(() => {
@@ -23,8 +29,9 @@ export async function activate(context: Vsc.ExtensionContext) {
                 Vsc.languages.registerDocumentRangeFormattingEditProvider(ZIG_MODE, new ZigRangeFormatProvider()),
             );
         }
+        activateZls(context);
+        Vsc.window.showInformationMessage("Zig•EM activated");
 
-        void activateZls(context);
     });
 }
 
