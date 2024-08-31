@@ -24,7 +24,7 @@
         "configurationDefaults": {
             "[zig]": {
                 "editor.formatOnSave": true,
-                "editor.defaultFormatter": "ziglang.vscode-zig",
+                "editor.defaultFormatter": "the-em-foundation.vscode-zigem",
                 "files.eol": "\n"
             }
         },
