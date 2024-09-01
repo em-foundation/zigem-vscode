@@ -17,6 +17,7 @@ export async function activate(context: Vsc.ExtensionContext) {
         return;
     }
     await updateSettings('editor', 'tokenColorCustomizations', COLORS);
+    await updateSettings('workbench', 'tree.indent', 20)
     await refreshIcons();
     await setupZig(context).finally(() => {
         const compiler = new ZigCompilerProvider();
