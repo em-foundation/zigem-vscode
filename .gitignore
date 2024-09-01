@@ -1,5 +1,6 @@
 .history/
-.build/
+releng/build/
+releng/gh-auth.txt
 out
 node_modules
 .vscode-test/

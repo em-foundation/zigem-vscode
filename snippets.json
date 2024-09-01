@@ -1,7 +1,7 @@
 {
     "New Module": {
         "body": [
-            "pub const em = @import(\"../../.gen/em.zig\");",
+            "pub const em = @import(\"../../zigem/em.zig\");",
             "pub const em__U = em.module(@This(), .{});",
             "pub const em__C = em__U.config(EM__CONFIG);",
             "",
@@ -19,7 +19,7 @@
     },
     "New Program": {
         "body": [
-            "pub const em = @import(\"../../.gen/em.zig\");",
+            "pub const em = @import(\"../../zigem/em.zig\");",
             "pub const em__U = em.module(@This(), .{});",
             "pub const em__C = em__U.config(EM__CONFIG);",
             "",
@@ -41,7 +41,7 @@
     },
     "New Interface": {
         "body": [
-            "pub const em = @import(\"../../.gen/em.zig\");",
+            "pub const em = @import(\"../../zigem/em.zig\");",
             "pub const em__U = em.interface(@This(), .{});",
             ""
         ],
@@ -50,7 +50,7 @@
     },
     "New Composite": {
         "body": [
-            "pub const em = @import(\"../../.gen/em.zig\");",
+            "pub const em = @import(\"../../zigem/em.zig\");",
             "pub const em__U = em.composite(@This(), .{});",
             "",
             "pub const EM__HOST = struct {};",
@@ -61,7 +61,7 @@
     },
     "New Template": {
         "body": [
-            "pub const em = @import(\"../../.gen/em.zig\");",
+            "pub const em = @import(\"../../zigem/em.zig\");",
             "pub const em__T = em.template(@This(), .{});",
             "pub const EM__CONFIG = struct {",
             "    em__upath: []const u8,",

@@ -1,3 +1,10 @@
+## 0.0.1
+- Baseline release with minimal upstream changes
+- Requires disabling `vscode-zig` extension in current workspace
+- Delivered as part of `zig-em-dev` install/update
+
+## vscode-zig upstreaam
+
 ## 0.5.7
 - Remove `zig.zls.openopenconfig` (@Techatrix)
 - Automatically add `zig` to `$PATH` in the integrated terminal (@Techatrix)
