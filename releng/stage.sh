@@ -14,5 +14,5 @@ TAG="v${VERS_FULL}"
 
 gh repo set-default https://github.com/em-foundation/vscode-zigem.git
 
-gh release create $TAG --notes-file CHANGELOG.md --prerelease
+gh release create $TAG --title $TAG --notes-file CHANGELOG.md --prerelease
 gh release upload $TAG vscode-zigem.zip
