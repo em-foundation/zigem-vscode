@@ -61,6 +61,7 @@ async function refreshIcons() {
     let bnames = mkBundleNames();
     await conf.update('associations.folders', [
         {icon: 'embundle', extensions: bnames, format: 'svg'},
+        {icon: 'zigem', extensions: ['zigem'], format: 'svg'},
     ], Vsc.ConfigurationTarget.Workspace)
     await conf.update('associations.files', [
         {icon: 'emunit', extensions: ['.em.zig'], format: 'svg'},
