@@ -40,28 +40,43 @@ export async function deactivate() {
     await deactivateZls();
 }
 
-function isBundle(path: string): boolean {
+function isPackage(path: string): boolean {
     if (!Fs.existsSync(path)) return false;
     if (!Fs.statSync(path).isDirectory()) return false;
-    let ifile = Path.join(path, 'em-bundle.ini');
+    let ifile = Path.join(path, 'zigem-package.ini');
     if (!Fs.existsSync(ifile)) return false;
     return true;
 }
 
-function mkBundleNames(): string[] {
+function mkBucketNames(): string[] {
     let res = new Array<string>();
     let wpath = Path.join(rootPath(), "workspace");
     Fs.readdirSync(wpath).forEach(f => {
-        if (isBundle(Path.join(wpath, f))) res.push(f);
+        let ppath = Path.join(wpath, f);
+        if (isPackage(ppath)) Fs.readdirSync(ppath).forEach(f => {
+            let bpath = Path.join(ppath, f);
+            if (Fs.statSync(bpath).isDirectory()) res.push(f);
+        });
+    });
+    return res;
+}
+
+function mkPackageNames(): string[] {
+    let res = new Array<string>();
+    let wpath = Path.join(rootPath(), "workspace");
+    Fs.readdirSync(wpath).forEach(f => {
+        if (isPackage(Path.join(wpath, f))) res.push(f);
     });
     return res;
 }
 
 async function refreshIcons() {
     let conf = Vsc.workspace.getConfiguration('vsicons', Vsc.Uri.file(rootPath()))
-    let bnames = mkBundleNames();
+    let pnames = mkPackageNames();
+    let bnames = mkBucketNames();
     await conf.update('associations.folders', [
-        {icon: 'embundle', extensions: bnames, format: 'svg'},
+        {icon: 'empackage', extensions: pnames, format: 'svg'},
+        {icon: 'embucket', extensions: bnames, format: 'svg'},
         {icon: 'zigem', extensions: ['zigem'], format: 'svg'},
     ], Vsc.ConfigurationTarget.Workspace)
     await conf.update('associations.files', [
