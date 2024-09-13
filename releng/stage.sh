@@ -1,6 +1,6 @@
 #! /bin/sh
 
-VERS='0.0.1'
+VERS='0.0.2'
 DATE=`date -u +%Y%m%d%H%M`
 VERS_FULL="${VERS}.${DATE}"
 TAG="v${VERS_FULL}"
