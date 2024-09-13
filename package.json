@@ -2,7 +2,7 @@
     "name": "vscode-zigem",
     "displayName": "Zig Language + Zig•EM",
     "description": "Language support for the Zig programming language",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "publisher": "the-em-foundation",
     "icon": "images/zig-icon.png",
     "license": "MIT",
