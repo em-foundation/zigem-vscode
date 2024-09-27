@@ -112,7 +112,7 @@
           "name": "meta.function.declaration.zig",
           "patterns": [
             {
-                "match": "\\b(fn)\\s+(em__configureH|em__constructH|em__fail|em__generateH|em__generateS|em__halt|em__initH|em__ready|em__reset|em__run|em__startup)\\b",
+                "match": "\\b(fn)\\s+(em__configureH|em__constructH|em__fail|em__generateH|em__generateS|em__halt|em__initH|em__onexit|em__ready|em__reset|em__run|em__startup)\\b",
                 "captures": {
                   "1": {
                     "name": "storage.type.function.zig"
