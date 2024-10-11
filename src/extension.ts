@@ -127,6 +127,20 @@ const COLORS =
             }
         },
         {
+            "scope": "zigemDomain",
+            "settings": {
+                "foreground": "#96ccbf",
+                "fontStyle": "italic"
+            }
+        },
+        {
+            "scope": "zigemDomainRef",
+            "settings": {
+                "foreground": "#bbffee",
+                "fontStyle": "normal"
+            }
+        },
+        {
             "scope": "zigemMarker",
             "settings": {
                 "foreground": "#bbffee",
