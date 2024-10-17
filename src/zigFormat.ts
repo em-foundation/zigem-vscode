@@ -18,6 +18,9 @@ export class ZigRangeFormatProvider implements vscode.DocumentRangeFormattingEdi
 }
 
 function zigFormat(document: vscode.TextDocument): vscode.TextEdit[] | null {
+
+    if (document.fileName.endsWith(".em.zig")) return null;
+
     const zigPath = getZigPath();
 
     const stdout = childProcess.execFileSync(zigPath, ["fmt", "--stdin"], {

@@ -9,6 +9,8 @@ import { DebouncedFunc, throttle } from "lodash-es";
 import * as zls from "./zls";
 import { getZigPath, handleConfigOption } from "./zigUtil";
 
+import * as zigemPublish from "./zigemPublish";
+
 export default class ZigCompilerProvider {
     private buildDiagnostics!: vscode.DiagnosticCollection;
     private astDiagnostics!: vscode.DiagnosticCollection;
@@ -40,10 +42,16 @@ export default class ZigCompilerProvider {
             this.buildDiagnostics,
             this.astDiagnostics,
             vscode.workspace.onDidChangeTextDocument((change) => {
+                if (change.document.fileName.endsWith(".em.zig")) return;
                 this.maybeDoASTGenErrorCheck(change);
             }),
             vscode.workspace.onDidSaveTextDocument((change) => {
-                this.maybeDoBuildOnSave(change);
+                if (change.fileName.endsWith(".em.zig")) {
+                    zigemPublish.exec(change);
+                }
+                else {
+                    this.maybeDoBuildOnSave(change);
+                }
             }),
             vscode.commands.registerCommand("zig.build.workspace", () => {
                 if (!vscode.window.activeTextEditor) return;
