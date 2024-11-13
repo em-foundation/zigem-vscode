@@ -47,7 +47,6 @@ export async function activate(context: Vsc.ExtensionContext) {
 function foldRegions(editor: Vsc.TextEditor) {
     const { document } = editor;
     const foldingRanges: Vsc.Range[] = [];
-    console.log(`*** foldRegions`);
 
     // Customize this with your folding region logic
     for (let i = 0; i < document.lineCount; i++) {
@@ -63,7 +62,13 @@ function foldRegions(editor: Vsc.TextEditor) {
     }
 
     editor.selections = foldingRanges.map(range => new Vsc.Selection(range.start, range.end));
-    Vsc.commands.executeCommand('editor.fold');
+    Vsc.commands.executeCommand('editor.fold').then(() => {
+        // Return focus to the top of the file
+        const topLinePosition = new Vsc.Position(0, 0);
+        editor.selection = new Vsc.Selection(topLinePosition, topLinePosition);
+        editor.revealRange(new Vsc.Range(topLinePosition, topLinePosition), Vsc.TextEditorRevealType.AtTop);
+    });
+
 }
 
 
