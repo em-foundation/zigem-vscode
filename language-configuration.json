@@ -23,8 +23,8 @@
     ],
     "folding": {
         "markers": {
-            "start": "// zig fmt: off\\b",
-            "end": "// zig fmt: on\\b"
+            "start": "^//#region\\b",
+            "end": "^//#endregion\\b"
         }
     },
     "onEnterRules": [
