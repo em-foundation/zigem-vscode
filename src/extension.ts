@@ -12,7 +12,7 @@ const ZIG_MODE: Vsc.DocumentFilter = { language: "zig", scheme: "file" };
 export async function activate(context: Vsc.ExtensionContext) {
     let zigFlag = Vsc.extensions.getExtension("ziglang.vscode-zig") != undefined;
     if (zigFlag) {
-        let opts: Vsc.MessageOptions = { detail: "Disable the 'ziglang.vscode-zig' extension in this workspace", modal: true};
+        let opts: Vsc.MessageOptions = { detail: "Disable the 'ziglang.vscode-zig' extension in this workspace", modal: true };
         await Vsc.window.showWarningMessage("Zig•EM", opts);
         return;
     }
@@ -30,11 +30,42 @@ export async function activate(context: Vsc.ExtensionContext) {
                 Vsc.languages.registerDocumentRangeFormattingEditProvider(ZIG_MODE, new ZigRangeFormatProvider()),
             );
         }
+        Vsc.workspace.onDidOpenTextDocument((document) => {
+            if (document.languageId === 'zig') {
+                Vsc.window.showTextDocument(document).then(editor => {
+                    foldRegions(editor);
+                });
+            }
+        });
         activateZls(context);
         Vsc.window.showInformationMessage("Zig•EM activated");
 
     });
 }
+
+
+function foldRegions(editor: Vsc.TextEditor) {
+    const { document } = editor;
+    const foldingRanges: Vsc.Range[] = [];
+    console.log(`*** foldRegions`);
+
+    // Customize this with your folding region logic
+    for (let i = 0; i < document.lineCount; i++) {
+        const lineText = document.lineAt(i).text;
+
+        // Identify your folding region (e.g., based on specific markers)
+        if (lineText.includes('#region zigem')) {  // or your folding marker
+            const startLine = i;
+            // Find end of the region based on your criteria
+            const endLine = document.lineCount - 1; // Example ending, adjust as needed
+            foldingRanges.push(new Vsc.Range(startLine, 0, endLine, 0));
+        }
+    }
+
+    editor.selections = foldingRanges.map(range => new Vsc.Selection(range.start, range.end));
+    Vsc.commands.executeCommand('editor.fold');
+}
+
 
 export async function deactivate() {
     await deactivateZls();
@@ -75,12 +106,12 @@ async function refreshIcons() {
     let pnames = mkPackageNames();
     let bnames = mkBucketNames();
     await conf.update('associations.folders', [
-        {icon: 'empackage', extensions: pnames, format: 'svg'},
-        {icon: 'embucket', extensions: bnames, format: 'svg'},
-        {icon: 'zigem', extensions: ['zigem'], format: 'svg'},
+        { icon: 'empackage', extensions: pnames, format: 'svg' },
+        { icon: 'embucket', extensions: bnames, format: 'svg' },
+        { icon: 'zigem', extensions: ['zigem'], format: 'svg' },
     ], Vsc.ConfigurationTarget.Workspace)
     await conf.update('associations.files', [
-        {icon: 'emunit', extensions: ['.em.zig'], format: 'svg'},
+        { icon: 'emunit', extensions: ['.em.zig'], format: 'svg' },
     ], Vsc.ConfigurationTarget.Workspace)
     await conf.update('customIconFolderPath', Path.join(Vsc.extensions.getExtension('the-em-foundation.vscode-zigem')!.extensionPath, 'etc'))
     Vsc.commands.executeCommand('vscode-icons.regenerateIcons')
