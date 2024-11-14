@@ -31,12 +31,19 @@ export async function activate(context: Vsc.ExtensionContext) {
             );
         }
         Vsc.workspace.onDidOpenTextDocument((document) => {
-            if (document.languageId === 'zig') {
+            if (document.fileName.endsWith(".em.zig")) {
                 Vsc.window.showTextDocument(document).then(editor => {
                     foldRegions(editor);
                 });
             }
         });
+        Vsc.workspace.onDidSaveTextDocument((document) => {
+            if (document.fileName.endsWith(".em.zig")) {
+                Vsc.window.showTextDocument(document).then(editor => {
+                    foldRegions(editor);
+                });
+            }
+        }),
         activateZls(context);
         Vsc.window.showInformationMessage("Zig•EM activated");
 
@@ -47,13 +54,14 @@ export async function activate(context: Vsc.ExtensionContext) {
 function foldRegions(editor: Vsc.TextEditor) {
     const { document } = editor;
     const foldingRanges: Vsc.Range[] = [];
+    const savedSelection = editor.selection;
 
     // Customize this with your folding region logic
     for (let i = 0; i < document.lineCount; i++) {
         const lineText = document.lineAt(i).text;
 
         // Identify your folding region (e.g., based on specific markers)
-        if (lineText.includes('#region zigem')) {  // or your folding marker
+        if (lineText.startsWith('//#region zigem')) {  // or your folding marker
             const startLine = i;
             // Find end of the region based on your criteria
             const endLine = document.lineCount - 1; // Example ending, adjust as needed
@@ -64,9 +72,11 @@ function foldRegions(editor: Vsc.TextEditor) {
     editor.selections = foldingRanges.map(range => new Vsc.Selection(range.start, range.end));
     Vsc.commands.executeCommand('editor.fold').then(() => {
         // Return focus to the top of the file
-        const topLinePosition = new Vsc.Position(0, 0);
-        editor.selection = new Vsc.Selection(topLinePosition, topLinePosition);
-        editor.revealRange(new Vsc.Range(topLinePosition, topLinePosition), Vsc.TextEditorRevealType.AtTop);
+        // const topLinePosition = new Vsc.Position(0, 0);
+        // editor.selection = new Vsc.Selection(topLinePosition, topLinePosition);
+        // editor.revealRange(new Vsc.Range(topLinePosition, topLinePosition), Vsc.TextEditorRevealType.AtTop);
+        editor.selection = savedSelection;
+        editor.revealRange(savedSelection, Vsc.TextEditorRevealType.Default);
     });
 
 }
