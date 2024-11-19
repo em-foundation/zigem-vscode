@@ -1,10 +1,10 @@
 {
     "name": "vscode-zigem",
-    "displayName": "Zig Language + Zig•EM",
-    "description": "Language support for the Zig programming language",
-    "version": "0.0.3",
+    "displayName": "Zig•EM",
+    "description": "Language support for the Zig•EM programming framework",
+    "version": "0.1.1",
     "publisher": "the-em-foundation",
-    "icon": "images/zig-icon.png",
+    "icon": "images/em-icon.png",
     "license": "MIT",
     "repository": {
         "type": "git",
