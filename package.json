@@ -1,8 +1,8 @@
 {
-    "name": "vscode-zigem",
+    "name": "zigem",
     "displayName": "Zig•EM",
     "description": "Language support for the Zig•EM programming framework",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "publisher": "the-em-foundation",
     "icon": "images/em-icon.png",
     "license": "MIT",
