@@ -1,6 +1,6 @@
 #! /bin/sh
 
-VERS='0.1.3'
+VERS='0.1.4'
 DATE=`date -u +%Y%m%d%H%M`
 VERS_FULL="${VERS}.${DATE}"
 TAG="v${VERS_FULL}"
@@ -12,7 +12,7 @@ npx vsce package
 mv vscode-zigem-${VERS}.vsix vscode-zigem-${VERS_FULL}.vsix
 zip vscode-zigem.zip vscode-zigem-${VERS_FULL}.vsix
 
-gh repo set-default https://github.com/em-foundation/vscode-zigem.git
+gh repo set-default https://github.com/em-foundation/zigem-vscode.git
 
 gh release create $TAG --title $TAG --notes-file CHANGELOG.md --prerelease
 gh release upload $TAG vscode-zigem.zip
