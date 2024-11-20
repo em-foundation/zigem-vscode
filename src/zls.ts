@@ -79,7 +79,7 @@ export async function stopClient() {
 
 export function getZLSPath(): string {
     const ext = isWindows ? ".exe" : "";
-    return `${vscode.workspace.workspaceFolders![0].uri.fsPath}/zig-out/bin/zls-em${ext}`;
+    return `${vscode.workspace.workspaceFolders![0].uri.fsPath}/zig-out/bin/zigem-zls${ext}`;
 }
 
 async function configurationMiddleware(

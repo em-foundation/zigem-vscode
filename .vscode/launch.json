@@ -7,7 +7,7 @@
             "name": "Launch Extension",
             "runtimeExecutable": "${execPath}",
             "args": [
-                "${workspaceFolder}/../../zig/zigem-dev/",
+                "${workspaceFolder}/../../zig/zigem-sdk/",
                 "--extensionDevelopmentPath=${workspaceFolder}"
             ],
             "outFiles": ["${workspaceFolder}/out/**/*.js"],
